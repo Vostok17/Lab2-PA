@@ -8,18 +8,17 @@ namespace AVL_tree
 {
     internal class Tree
     {
+        private Node root;
         private int BalanceFactor(Node node)
         {
             return node.Right.Height - node.Left.Height;
         }
-
         private void FixHeight(Node node)
         {
             int hl = node.Left.Height,
                 hr = node.Right.Height;
             node.Height = (hl > hr ? hl : hr) + 1;
         }
-
         private Node RotateRight(Node p)
         {
             Node q = p.Left;
@@ -38,7 +37,6 @@ namespace AVL_tree
             FixHeight(p);
             return p;
         }
-
         private Node Balance(Node node)
         {
             FixHeight(node);
@@ -59,6 +57,23 @@ namespace AVL_tree
                 return RotateRight(node);
             }
             return node;
+        }
+        private Node Insert(Node node, int key)
+        {
+            if (node == null) return new Node(key);
+            if (key < node.Key)
+            {
+                node.Left = Insert(node.Left, key);
+            }
+            else
+            {
+                node.Right = Insert(node.Right, key);
+            }
+            return Balance(node);
+        }
+        public void Add(int key)
+        {
+            Insert(root, key);
         }
     }
 }

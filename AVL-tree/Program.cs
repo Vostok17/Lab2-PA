@@ -6,7 +6,9 @@ namespace AVL_tree
     {
         static void Main(string[] args)
         {
-            
+            Tree tree = new();
+
+            Console.ReadKey();
         }
     }
 }
