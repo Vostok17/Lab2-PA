@@ -6,7 +6,7 @@ namespace AVL_tree
     {
         static void Main(string[] args)
         {
-            Tree tree = new();
+            Tree<string> tree = new();
             tree.Add(22);
             tree.Add(17);
             tree.Add(12);
@@ -16,6 +16,9 @@ namespace AVL_tree
             tree.PrintTree();
 
             tree.Remove(17);
+            tree.PrintTree();
+
+            tree.Search(18);
             tree.PrintTree();
 
             Console.ReadKey();

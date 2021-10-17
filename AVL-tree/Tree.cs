@@ -6,42 +6,42 @@ using System.Threading.Tasks;
 
 namespace AVL_tree
 {
-    internal class Tree
+    internal class Tree<T>
     {
-        private Node root;
-        private int BalanceFactor(Node node)
+        private Node<T> root;
+        private int BalanceFactor(Node<T> node)
         {
             return Height(node.Right) - Height(node.Left);
         }
-        private int Height(Node node)
+        private int Height(Node<T> node)
         {
             return (node != null) ? node.Height : 0;
         }
-        private void FixHeight(Node node)
+        private void FixHeight(Node<T> node)
         {
             int hl = Height(node.Left),
                 hr = Height(node.Right);
             node.Height = (hl > hr ? hl : hr) + 1;
         }
-        private Node RotateRight(Node p)
+        private Node<T> RotateRight(Node<T> p)
         {
-            Node q = p.Left;
+            Node<T> q = p.Left;
             p.Left = q.Right;
             q.Right = p;
             FixHeight(p);
             FixHeight(q);
             return q;
         }
-        private Node RotateLeft(Node q)
+        private Node<T> RotateLeft(Node<T> q)
         {
-            Node p = q.Right;
+            Node<T> p = q.Right;
             q.Right = p.Left;
             p.Left = q;
             FixHeight(q);
             FixHeight(p);
             return p;
         }
-        private Node Balance(Node node)
+        private Node<T> Balance(Node<T> node)
         {
             FixHeight(node);
             if (BalanceFactor(node) == 2)
@@ -62,9 +62,9 @@ namespace AVL_tree
             }
             return node;
         }
-        private Node Insert(Node node, int key)
+        private Node<T> Insert(Node<T> node, int key)
         {
-            if (node == null) return new Node(key);
+            if (node == null) return new Node<T>(key);
             if (key < node.Key)
             {
                 node.Left = Insert(node.Left, key);
@@ -79,7 +79,7 @@ namespace AVL_tree
         {
             root = Insert(root, key);
         }
-        private void PrintTree(Node node, string indent = "", Side? side = null)
+        private void PrintTree(Node<T> node, string indent = "", Side? side = null)
         {
             if (node != null)
             {
@@ -101,11 +101,42 @@ namespace AVL_tree
                 PrintTree(root);
             }
         }
-        private Node FindMin(Node node)
+        public void Search(int key)
+        {
+            Node<T> foundNode = Search(root, key);
+            if (foundNode != null)
+            {
+                Console.WriteLine(foundNode.Key);
+            }
+            else
+            {
+                Console.WriteLine("Not found!");
+            }
+        }
+        private Node<T> Search(Node<T> node, int key)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            if (key == node.Key)
+            {
+                return node;
+            }
+            else if (key < node.Key)
+            {
+                return Search(node.Left, key);
+            }
+            else
+            {
+                return Search(node.Right, key);
+            }
+        }
+        private Node<T> FindMin(Node<T> node)
         {
             return (node.Left != null) ? FindMin(node.Left) : node;
         }
-        private Node RemoveMin(Node node)
+        private Node<T> RemoveMin(Node<T> node)
         {
             if (node.Left == null)
             {
@@ -118,7 +149,7 @@ namespace AVL_tree
         {
             root = Remove(root, key);
         }
-        private Node Remove(Node node, int key)
+        private Node<T> Remove(Node<T> node, int key)
         {
             if (node == null)
             {
@@ -134,13 +165,13 @@ namespace AVL_tree
             }
             else
             {
-                Node left = node.Left,
+                Node<T> left = node.Left,
                      right = node.Right;
                 if (right == null)
                 {
                     return left;
                 }
-                Node min = FindMin(right); 
+                Node<T> min = FindMin(right); 
                 min.Right = RemoveMin(right);
                 min.Left = left;
                 return Balance(min);
