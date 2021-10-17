@@ -47,23 +47,23 @@ namespace AVL_tree
         private Node<T> Balance(Node<T> node)
         {
             FixHeight(node);
-            if (BalanceFactor(node) == 2)
+            if (BalanceFactor(node) == 2) // right tree unbalanced
             {
-                if (BalanceFactor(node.Right) < 0)
+                if (BalanceFactor(node.Right) < 0) // left child is higher
                 {
                     node.Right = RotateRight(node.Right);
                 }
                 return RotateLeft(node);
             }
-            if (BalanceFactor(node) == -2)
+            if (BalanceFactor(node) == -2) // left tree unbalanced
             {
-                if (BalanceFactor(node.Left) > 0)
+                if (BalanceFactor(node.Left) > 0) // right child is higher
                 {
                     node.Left = RotateLeft(node.Left);
                 }
                 return RotateRight(node);
             }
-            return node;
+            return node; // no need to balance
         }
         // Add
         private Node<T> Insert(Node<T> node, int key, T value)
@@ -155,7 +155,7 @@ namespace AVL_tree
         {
             if (node.Left == null)
             {
-                return node.Right;
+                return node.Right; // becomes left child of the previous node
             }
             node.Left = RemoveMin(node.Left);
             return Balance(node);
@@ -188,13 +188,14 @@ namespace AVL_tree
             {
                 Node<T> left = node.Left,
                      right = node.Right;
-                if (right == null)
-                {
+                if (right == null) // if right subtree is empty, then in left could be only one node (tree is balanced)
+                {                  // so its okey to replace current node with left (even if it's null)
                     return left;
                 }
+                // take the smallest key in right subtree and replace current node
                 Node<T> min = FindMin(right); 
-                min.Right = RemoveMin(right);
-                min.Left = left;
+                min.Right = RemoveMin(right); // right subtree without min key
+                min.Left = left; 
                 return Balance(min);
 
             }
