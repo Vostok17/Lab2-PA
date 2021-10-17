@@ -11,12 +11,16 @@ namespace AVL_tree
         private Node root;
         private int BalanceFactor(Node node)
         {
-            return node.Right.Height - node.Left.Height;
+            return Height(node.Right) - Height(node.Left);
+        }
+        private int Height(Node node)
+        {
+            return (node != null) ? node.Height : 0;
         }
         private void FixHeight(Node node)
         {
-            int hl = node.Left.Height,
-                hr = node.Right.Height;
+            int hl = Height(node.Left),
+                hr = Height(node.Right);
             node.Height = (hl > hr ? hl : hr) + 1;
         }
         private Node RotateRight(Node p)
@@ -73,7 +77,7 @@ namespace AVL_tree
         }
         public void Add(int key)
         {
-            Insert(root, key);
+            root = Insert(root, key);
         }
         private void PrintTree(Node node, string indent = "", Side? side = null)
         {
@@ -85,11 +89,17 @@ namespace AVL_tree
                 PrintTree(node.Left, indent, Side.Left);
                 PrintTree(node.Right, indent, Side.Right);
             }
-            else Console.WriteLine("Tree is empty!");
         }
         public void PrintTree()
         {
-            PrintTree(root);
+            if (root == null)
+            {
+                Console.WriteLine("Tree is empty!");
+            }
+            else
+            {
+                PrintTree(root);
+            }
         }
     }
 }

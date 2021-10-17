@@ -7,7 +7,12 @@ namespace AVL_tree
         static void Main(string[] args)
         {
             Tree tree = new();
-            tree.Add(45);
+            tree.Add(22);
+            tree.Add(17);
+            tree.Add(12);
+            tree.Add(18);
+            tree.Add(23);
+            tree.Add(25);
             tree.PrintTree();
 
             Console.ReadKey();
