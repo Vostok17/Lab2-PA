@@ -6,20 +6,15 @@ namespace AVL_tree
     {
         static void Main(string[] args)
         {
+            const int NUM_OF_CELLS = 10000;
+            FileManager fm = new FileManager(@"C:\Users\Artem\Desktop\ПА\Lab2\AVL-tree\files\data.txt", NUM_OF_CELLS);
+            //fm.GenerateDataFile();
+            
             Tree<string> tree = new();
-            tree.Add(22);
-            tree.Add(17);
-            tree.Add(12);
-            tree.Add(18);
-            tree.Add(23);
-            tree.Add(25);
-            tree.PrintTree();
+            fm.FillTree(tree);
 
-            tree.Remove(17);
-            tree.PrintTree();
-
-            tree.Search(18);
-            tree.PrintTree();
+            //tree.PrintTree();
+            tree.Search(45);
 
             Console.ReadKey();
         }

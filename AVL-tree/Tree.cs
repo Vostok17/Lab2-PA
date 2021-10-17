@@ -62,22 +62,22 @@ namespace AVL_tree
             }
             return node;
         }
-        private Node<T> Insert(Node<T> node, int key)
+        private Node<T> Insert(Node<T> node, int key, T value)
         {
-            if (node == null) return new Node<T>(key);
+            if (node == null) return new Node<T>(key, value);
             if (key < node.Key)
             {
-                node.Left = Insert(node.Left, key);
+                node.Left = Insert(node.Left, key, value);
             }
             else
             {
-                node.Right = Insert(node.Right, key);
+                node.Right = Insert(node.Right, key, value);
             }
             return Balance(node);
         }
-        public void Add(int key)
+        public void Add(int key, T value)
         {
-            root = Insert(root, key);
+            root = Insert(root, key, value);
         }
         private void PrintTree(Node<T> node, string indent = "", Side? side = null)
         {
@@ -106,7 +106,7 @@ namespace AVL_tree
             Node<T> foundNode = Search(root, key);
             if (foundNode != null)
             {
-                Console.WriteLine(foundNode.Key);
+                Console.WriteLine($"Key = {foundNode.Key}, value = {foundNode.Value}");
             }
             else
             {
