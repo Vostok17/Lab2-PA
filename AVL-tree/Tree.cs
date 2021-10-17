@@ -75,5 +75,21 @@ namespace AVL_tree
         {
             Insert(root, key);
         }
+        private void PrintTree(Node node, string indent = "", Side? side = null)
+        {
+            if (node != null)
+            {
+                string nodeSide = (side == null) ? "+" : (side == Side.Left) ? "L" : "R";
+                Console.WriteLine($"{indent} [{nodeSide}]- {node.Key}");
+                indent += new string(' ', 3);
+                PrintTree(node.Left, indent, Side.Left);
+                PrintTree(node.Right, indent, Side.Right);
+            }
+            else Console.WriteLine("Tree is empty!");
+        }
+        public void PrintTree()
+        {
+            PrintTree(root);
+        }
     }
 }
