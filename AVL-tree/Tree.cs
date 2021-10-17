@@ -101,5 +101,52 @@ namespace AVL_tree
                 PrintTree(root);
             }
         }
+        private Node FindMin(Node node)
+        {
+            return (node.Left != null) ? FindMin(node.Left) : node;
+        }
+        private Node RemoveMin(Node node)
+        {
+            if (node.Left == null)
+            {
+                return node.Right;
+            }
+            node.Left = RemoveMin(node.Left);
+            return Balance(node);
+        }
+        public void Remove(int key)
+        {
+            root = Remove(root, key);
+        }
+        private Node Remove(Node node, int key)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            if (key < node.Key)
+            {
+                node.Left = Remove(node.Left, key);
+            }
+            else if (key > node.Key)
+            {
+                node.Right = Remove(node.Right, key);
+            }
+            else
+            {
+                Node left = node.Left,
+                     right = node.Right;
+                if (right == null)
+                {
+                    return left;
+                }
+                Node min = FindMin(right); 
+                min.Right = RemoveMin(right);
+                min.Left = left;
+                return Balance(min);
+
+            }
+            return Balance(node);
+        }
     }
 }
