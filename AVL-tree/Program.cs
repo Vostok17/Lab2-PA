@@ -9,7 +9,7 @@ namespace AVL_tree
             const int NUM_OF_CELLS = 10000;
             FileManager fm = new FileManager(@"C:\Users\Artem\Desktop\ПА\Lab2\AVL-tree\files\data.txt", NUM_OF_CELLS);
             //fm.GenerateDataFile();
-            
+
             Tree<string> tree = new();
             fm.FillTree(tree);
 

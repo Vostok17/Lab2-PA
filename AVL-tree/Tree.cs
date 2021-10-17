@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AVL_tree
 {
@@ -193,9 +189,9 @@ namespace AVL_tree
                     return left;
                 }
                 // take the smallest key in right subtree and replace current node
-                Node<T> min = FindMin(right); 
+                Node<T> min = FindMin(right);
                 min.Right = RemoveMin(right); // right subtree without min key
-                min.Left = left; 
+                min.Left = left;
                 return Balance(min);
 
             }

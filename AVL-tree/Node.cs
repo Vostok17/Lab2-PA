@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AVL_tree
+﻿namespace AVL_tree
 {
     internal class Node<T>
     {
@@ -15,10 +9,10 @@ namespace AVL_tree
             Left = Right = null;
             Height = 1;
         }
-        public int Key {  get; set; }
+        public int Key { get; set; }
         public T Value { get; set; }
-        public Node<T> Left {  get; set; }
-        public Node<T> Right {  get; set; }
-        public int Height {  get; set; }
+        public Node<T> Left { get; set; }
+        public Node<T> Right { get; set; }
+        public int Height { get; set; }
     }
 }
