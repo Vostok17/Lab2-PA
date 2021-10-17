@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace AVL_tree
     internal class Tree<T>
     {
         private Node<T> root;
+        // Height and balance factor
         private int BalanceFactor(Node<T> node)
         {
             return Height(node.Right) - Height(node.Left);
@@ -23,6 +25,7 @@ namespace AVL_tree
                 hr = Height(node.Right);
             node.Height = (hl > hr ? hl : hr) + 1;
         }
+        // Rotation and balance
         private Node<T> RotateRight(Node<T> p)
         {
             Node<T> q = p.Left;
@@ -62,6 +65,7 @@ namespace AVL_tree
             }
             return node;
         }
+        // Add
         private Node<T> Insert(Node<T> node, int key, T value)
         {
             if (node == null) return new Node<T>(key, value);
@@ -79,6 +83,7 @@ namespace AVL_tree
         {
             root = Insert(root, key, value);
         }
+        // Print
         private void PrintTree(Node<T> node, string indent = "", Side? side = null)
         {
             if (node != null)
@@ -101,17 +106,26 @@ namespace AVL_tree
                 PrintTree(root);
             }
         }
+        // Search
         public void Search(int key)
         {
+            time.Start();
+            Console.WriteLine("Looking for key {0}...", key);
+
             Node<T> foundNode = Search(root, key);
             if (foundNode != null)
             {
-                Console.WriteLine($"Key = {foundNode.Key}, value = {foundNode.Value}");
+                Console.WriteLine("Found!");
+                Console.WriteLine($"key = {foundNode.Key}, value = {foundNode.Value}");
             }
             else
             {
                 Console.WriteLine("Not found!");
             }
+
+            time.Stop();
+            Console.WriteLine("Elapsed time {0} ms\n", time.Elapsed.TotalMilliseconds);
+            time.Reset();
         }
         private Node<T> Search(Node<T> node, int key)
         {
@@ -132,6 +146,7 @@ namespace AVL_tree
                 return Search(node.Right, key);
             }
         }
+        // Remove
         private Node<T> FindMin(Node<T> node)
         {
             return (node.Left != null) ? FindMin(node.Left) : node;
@@ -147,7 +162,13 @@ namespace AVL_tree
         }
         public void Remove(int key)
         {
+            time.Start();
+            Console.WriteLine("Removing key {0}...", key);
+
             root = Remove(root, key);
+
+            Console.WriteLine("Elapces time {0} ms\n", time.Elapsed.TotalMilliseconds);
+            time.Stop();
         }
         private Node<T> Remove(Node<T> node, int key)
         {
@@ -179,5 +200,6 @@ namespace AVL_tree
             }
             return Balance(node);
         }
+        private Stopwatch time = new Stopwatch();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace AVL_tree
         private string path;
         private int size;
         private string allowedChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789!@$?_-#*><";
+        Stopwatch time = new Stopwatch();
 
         public void GenerateDataFile()
         {
@@ -48,6 +50,8 @@ namespace AVL_tree
         }
         public void FillTree(Tree<string> tree)
         {
+            Console.WriteLine("Building tree...");
+            time.Start();
             using (StreamReader sr = new StreamReader(path))
             {
                 string line;
@@ -59,6 +63,8 @@ namespace AVL_tree
                     tree.Add(key, value);
                 }
             }
+            time.Stop();
+            Console.WriteLine("Elapsed time: {0} ms\n", time.ElapsedMilliseconds);
         }
     }
 }

@@ -16,6 +16,9 @@ namespace AVL_tree
             //tree.PrintTree();
             tree.Search(45);
 
+            tree.Remove(45);
+            tree.Search(45);
+
             Console.ReadKey();
         }
     }
