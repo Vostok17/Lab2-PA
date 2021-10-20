@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -29,7 +30,7 @@ namespace AVL_tree
             Array.Sort(order, keys);
             // write 
             const int VALUE_LENGHT = 4;
-            using (StreamWriter sw = new StreamWriter(path))
+            using (StreamWriter sw = new StreamWriter(path + "data.txt"))
             {
                 for (int ctr = 0; ctr < size; ctr++)
                 {
@@ -48,7 +49,7 @@ namespace AVL_tree
         {
             Console.WriteLine("Building tree...");
             time.Start();
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path + "new.txt"))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -61,6 +62,27 @@ namespace AVL_tree
             }
             time.Stop();
             Console.WriteLine("Elapsed time: {0} ms\n", time.ElapsedMilliseconds);
+        }
+        public void Write(Tree<string> tree)
+        {
+            using (StreamWriter sw = new StreamWriter(path + "new.txt"))
+            {
+                Queue<Node<string>> queue = new();
+                queue.Enqueue(tree.Root);
+                while (queue.Count != 0)
+                {
+                    Node<string> node = queue.Dequeue();
+                    sw.WriteLine($"{node.Key}, {node.Value}");
+                    if (node.Left != null)
+                    {
+                        queue.Enqueue(node.Left);
+                    }
+                    if (node.Right != null)
+                    {
+                        queue.Enqueue(node.Right);
+                    }
+                }
+            }
         }
     }
 }

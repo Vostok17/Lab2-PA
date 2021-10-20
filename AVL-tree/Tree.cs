@@ -5,7 +5,7 @@ namespace AVL_tree
 {
     internal class Tree<T>
     {
-        private Node<T> root;
+        public Node<T> Root { get; private set; }
         // Height and balance factor
         private int BalanceFactor(Node<T> node)
         {
@@ -77,7 +77,7 @@ namespace AVL_tree
         }
         public void Add(int key, T value)
         {
-            root = Insert(root, key, value);
+            Root = Insert(Root, key, value);
         }
         // Print
         private void PrintTree(Node<T> node, string indent = "", Side? side = null)
@@ -93,13 +93,13 @@ namespace AVL_tree
         }
         public void PrintTree()
         {
-            if (root == null)
+            if (Root == null)
             {
                 Console.WriteLine("Tree is empty!");
             }
             else
             {
-                PrintTree(root);
+                PrintTree(Root);
             }
         }
         // Search
@@ -108,7 +108,7 @@ namespace AVL_tree
             time.Start();
             Console.WriteLine("Looking for key {0}...", key);
 
-            Node<T> foundNode = Search(root, key);
+            Node<T> foundNode = Search(Root, key);
             if (foundNode != null)
             {
                 Console.WriteLine("Found!");
@@ -161,7 +161,7 @@ namespace AVL_tree
             time.Start();
             Console.WriteLine("Removing key {0}...", key);
 
-            root = Remove(root, key);
+            Root = Remove(Root, key);
 
             Console.WriteLine("Elapces time {0} ms\n", time.Elapsed.TotalMilliseconds);
             time.Stop();
