@@ -13,11 +13,12 @@ namespace AVL_tree
             Tree<string> tree = new();
             fm.FillTree(tree);
 
+            int keyToOperate = 0;
             //tree.PrintTree();
-            tree.Search(45);
+            tree.Search(keyToOperate);
 
-            tree.Remove(5041);
-            tree.Search(45);
+            tree.Remove(keyToOperate);
+            tree.Search(keyToOperate);
 
             fm.Write(tree);
 
@@ -25,3 +26,17 @@ namespace AVL_tree
         }
     }
 }
+
+// for 15 tests
+
+/*Tree<string> tree = new();
+            fm.FillTree(tree);
+
+            Random rnd = new();
+            for (int i = 0; i < 15; i++)
+            {
+                Console.WriteLine("{0} test:", i + 1);
+                tree.Search(rnd.Next(0,NUM_OF_CELLS));
+                Console.WriteLine("Compares: {0}", tree.Compares);
+                Console.WriteLine(new string('=', 30));
+            }*/

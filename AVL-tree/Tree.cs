@@ -6,6 +6,7 @@ namespace AVL_tree
     internal class Tree<T>
     {
         public Node<T> Root { get; private set; }
+        public int Compares { get; private set; }
         // Height and balance factor
         private int BalanceFactor(Node<T> node)
         {
@@ -108,11 +109,13 @@ namespace AVL_tree
             time.Start();
             Console.WriteLine("Looking for key {0}...", key);
 
+            Compares = 0;
             Node<T> foundNode = Search(Root, key);
             if (foundNode != null)
             {
                 Console.WriteLine("Found!");
                 Console.WriteLine($"key = {foundNode.Key}, value = {foundNode.Value}");
+                Console.WriteLine("Total compares: {0}", Compares);
             }
             else
             {
@@ -125,6 +128,7 @@ namespace AVL_tree
         }
         private Node<T> Search(Node<T> node, int key)
         {
+            Compares++;
             if (node == null)
             {
                 return null;
@@ -161,7 +165,15 @@ namespace AVL_tree
             time.Start();
             Console.WriteLine("Removing key {0}...", key);
 
-            Root = Remove(Root, key);
+            Node<T> node = Search(Root, key);
+            if (node == null)
+            {
+                Console.WriteLine("Such key doesn't exist!");
+            }
+            else
+            {
+                Root = Remove(Root, key);
+            }
 
             Console.WriteLine("Elapces time {0} ms\n", time.Elapsed.TotalMilliseconds);
             time.Stop();
@@ -196,6 +208,16 @@ namespace AVL_tree
 
             }
             return Balance(node);
+        }
+        public void Edit(int key, T newValue)
+        {
+            Node<T> node = Search(Root, key);
+            if (node == null) Console.WriteLine("No node for such key!");
+            else
+            {
+                node.Value = newValue;
+                Console.WriteLine("Changes saved.");
+            }
         }
         private Stopwatch time = new Stopwatch();
     }

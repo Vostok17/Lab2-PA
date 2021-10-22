@@ -11,8 +11,10 @@ namespace AVL_tree
         {
             this.path = path;
             this.size = size;
+            filename = "data.txt";
         }
         private string path;
+        private string filename;
         private int size;
         private string allowedChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789!@$?_-#*><";
         Stopwatch time = new Stopwatch();
@@ -30,7 +32,7 @@ namespace AVL_tree
             Array.Sort(order, keys);
             // write 
             const int VALUE_LENGHT = 4;
-            using (StreamWriter sw = new StreamWriter(path + "data.txt"))
+            using (StreamWriter sw = new StreamWriter(path + filename))
             {
                 for (int ctr = 0; ctr < size; ctr++)
                 {
@@ -49,7 +51,7 @@ namespace AVL_tree
         {
             Console.WriteLine("Building tree...");
             time.Start();
-            using (StreamReader sr = new StreamReader(path + "new.txt"))
+            using (StreamReader sr = new StreamReader(path + filename))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -65,7 +67,7 @@ namespace AVL_tree
         }
         public void Write(Tree<string> tree)
         {
-            using (StreamWriter sw = new StreamWriter(path + "new.txt"))
+            using (StreamWriter sw = new StreamWriter(path + filename))
             {
                 Queue<Node<string>> queue = new();
                 queue.Enqueue(tree.Root);
